@@ -1,38 +1,45 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Ionicons } from "@expo/vector-icons";
+import { SFSymbol, SymbolView } from "expo-symbols"
+import { ComponentProps } from "react";
+import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 
-type IconButtonProps = {
-  onPress: () => void;
-  iconName: React.ComponentProps<typeof Ionicons>['name'];  // Correct typing for Ionicons name
-  iconSize?: number;
-  iconColor?: string;
-  label?: string;
-};
+const CONTAINER_PADDING = 5;
+const CONTAINER_WIDTH = 34;
+const ICON_SIZE = 25;
 
-export const IconButton: React.FC<IconButtonProps> = ({
-  onPress,
-  iconName,
-  iconSize = 24,
-  iconColor = 'black',
-  label,
-}) => {
-  return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Ionicons name={iconName} size={iconSize} color={iconColor} />
-      {label && <Text style={styles.label}>{label}</Text>}
-    </TouchableOpacity>
-  );
-};
+interface IconButtonProps {
+    iosName: SFSymbol;
+    androidName: ComponentProps<typeof Ionicons>["name"];
+    containerStyle?: StyleProp<ViewStyle>;
+    onPress?: () => void;
+    width?: number;
+    height?: number;
+}
 
-const styles = StyleSheet.create({
-  button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-  },
-  label: {
-    marginLeft: 8,
-    fontSize: 16,
-  },
-});
+export default function IconButton({androidName, iosName, containerStyle, onPress, width, height}: IconButtonProps) {
+    return (
+        <TouchableOpacity 
+            onPress={onPress} 
+            style={[
+                {
+                    backgroundColor: "#00000050",
+                    padding: CONTAINER_PADDING,
+                    borderRadius: (CONTAINER_WIDTH + CONTAINER_PADDING * 2) / 2,
+                    width: CONTAINER_WIDTH
+                }, 
+                containerStyle
+                ]}
+            >
+            <SymbolView
+                name={iosName}
+                size={ICON_SIZE}
+                style={width && height ? {width, height} : {}}
+                type="hierarchical"
+                tintColor={"white"}
+                fallback={
+                <Ionicons size={ICON_SIZE} name={androidName} color={"white"}/>
+                }
+            />
+        </TouchableOpacity>
+    )
+}
