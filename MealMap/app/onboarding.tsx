@@ -1,31 +1,74 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet, Platform, Button, Alert } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { SymbolView } from 'expo-symbols';
+import { Colors } from '@/constants/Colors';
+import {usePermissions} from 'expo-media-library';
+import {useCameraPermissions} from 'expo-camera';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
 
 export default function OnboardingScreen() {
+ const [cameraPermissions, requestCameraPermissions] = useCameraPermissions();
+ const [mediaLibraryPermissions, requestMediaLibraryPermissions] = usePermissions();
+
+ async function handleContinue() {
+    const allPermissions = await requestAllPermissions();
+    if (allPermissions) {
+        console.log(allPermissions);
+        router.replace("/(tabs)");
+    } else {
+        Alert.alert("To continue please provide permissions in your phone's settings");
+    }
+ }
+
+ async function requestAllPermissions() {
+    const cameraStatus = await requestCameraPermissions();
+    if (!cameraStatus.granted) {
+        Alert.alert("Please provide camera access in order to upload your recipe pictures.")
+        return false;
+    }
+
+    const mediaLibraryStatus = await requestMediaLibraryPermissions();
+    if (!mediaLibraryStatus.granted) {
+        Alert.alert("Please provide media library access in order to upload your recipe pictures.")
+        return false;
+    }
+
+    await AsyncStorage.setItem("hasopened", "true");
+    return true;
+ }
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#1E807F', dark: '#5DB07F' }}
       headerImage={
-        // <SymbolView 
-        //     name="05.circle.fill"
-        //     size={240}
-        // />
-        <Image
-          source={require('@/assets/images/bargainBearHorizontal.png')}
-          style={styles.reactLogo}
+        <SymbolView 
+            name="camera.macro.circle"
+            size={250}
+            type="hierarchical"
+            tintColor={Colors.dark.snapPrimary}
+            animationSpec={{ 
+                effect: {
+                    type: "bounce"
+                },
+            }}
+            fallback={
+                <Image
+              source={require('@/assets/images/bargainBearHorizontal.png')}
+              style={styles.reactLogo}
+            />
+            }
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome to BargainBear!</ThemedText>
+        <ThemedText type="subtitle" >Welcome to BudgetBites!</ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">🛒 Find ingredients</ThemedText>
+        <ThemedText type="defaultSemiBold">🛒 Find ingredients</ThemedText>
         <ThemedText>
           Search for the <ThemedText type="defaultSemiBold">cheapest</ThemedText> ingredients 
           for your recipes
@@ -37,13 +80,13 @@ export default function OnboardingScreen() {
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">🍜 Get recommended recipes</ThemedText>
+        <ThemedText type="defaultSemiBold">🍜 Get recommended recipes</ThemedText>
         <ThemedText>
           Having no inspiration? Select from a recommended recipe to try out.
         </ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">🤖 Leverage AI </ThemedText>
+        <ThemedText type="defaultSemiBold">🤖 Leverage AI </ThemedText>
         <ThemedText>
           Upload pictures and let our AI do the rest
           {/* <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
@@ -52,6 +95,7 @@ export default function OnboardingScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>. */}
         </ThemedText>
       </ThemedView>
+      <Button title="Continue" onPress={handleContinue}></Button>
     </ParallaxScrollView>
   );
 }

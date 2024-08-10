@@ -11,7 +11,7 @@ export default function TabLayout() {
   const { isFirstTime, isLoading} = useIsFirstOpen();
 
   if (isLoading) return <></>;
-  if (!isFirstTime) return <Redirect href={"/onboarding"}/>;
+  if (isFirstTime) return <Redirect href={"/onboarding"}/>;
   return (
     <Tabs
       screenOptions={{
