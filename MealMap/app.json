@@ -13,7 +13,8 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.BudgetBites"
     },
     "android": {
       "adaptiveIcon": {
@@ -23,8 +24,11 @@
       "permissions": [
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.ACCESS_MEDIA_LOCATION",
-        "android.permission.CAMERA"
-      ]
+        "android.permission.CAMERA",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.anonymous.BudgetBites"
     },
     "web": {
       "bundler": "metro",
@@ -34,19 +38,35 @@
     "plugins": [
       "expo-router",
       [
-        "expo-media-library", {
+        "expo-media-library",
+        {
           "photosPermission": "Allow $(PRODUCT_NAME) to access your photos.",
           "savePhotosPermission": "Allow $(PRODUCT_NAME) to save photos."
         }
       ],
       [
-        "expo-camera", {
+        "expo-camera",
+        {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
+        }
+      ],
+      [
+        "expo-dev-launcher",
+        {
+          "launchMode": "most-recent"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "49aafe25-6c43-461e-8550-b50c7a266905"
+      }
     }
   }
 }
