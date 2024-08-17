@@ -102,28 +102,43 @@
 import BottomRowTools from '@/components/BottomRowTools';
 import IconButton from '@/components/IconButton';
 import MainRowActions from '@/components/MainRowActions';
-import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
+import { CameraView, CameraType, useCameraPermissions, CameraMode } from 'expo-camera';
+import {usePermissions} from 'expo-media-library';
+import React from 'react';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function App() {
   const [facing, setFacing] = useState<CameraType>('back');
-  // const [permission, requestPermission] = useCameraPermissions();
+  const [cameraMode, setCameraMode] = useState<CameraMode>("picture");
+  const cameraRef = React.useRef<CameraView>(null);
+  const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+  const [mediaPermission, requestMediaPermission] = usePermissions();
 
-  // if (!permission) {
-  //   // Camera permissions are still loading.
-  //   return <View />;
-  // }
+  if (!cameraPermission && !mediaPermission) {
+    // Camera permissions are still loading.
+    return <View />;
+  }
 
-  // if (!permission.granted) {
-  //   // Camera permissions are not granted yet.
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text style={styles.message}>We need your permission to show the camera</Text>
-  //       <Button onPress={requestPermission} title="grant permission" />
-  //     </View>
-  //   );
-  // }
+  if (!cameraPermission?.granted) {
+    // Camera permissions are not granted yet.
+    return (
+      <View style={styles.container}>
+        <Text style={styles.message}>We need your permission to show the camera</Text>
+        <Button onPress={requestCameraPermission} title="grant permission" />
+      </View>
+    );
+  }
+
+  if (!mediaPermission?.granted) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.message}>We need your permission to access your gallery</Text>
+        <Button onPress={requestMediaPermission} title="grant permission"></Button>
+
+      </View>
+    )
+  }
 
   function toggleCameraFacing() {
     setFacing(current => (current === 'back' ? 'front' : 'back'));
@@ -131,15 +146,18 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing}>
-          {/* <IconButton iosName={'0.circle'} androidName={'key'}  /> */}
-          <MainRowActions handleTakePicture={() => {}}></MainRowActions>
+      <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
+          <MainRowActions 
+            cameraMode={cameraMode} 
+            isRecording={false}
+            handleTakePicture={() => {}}
+          />
           <BottomRowTools></BottomRowTools>
-        {/* <View style={styles.buttonContainer}>
+        <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
             <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity> */}
-        {/* </View> */}
+          </TouchableOpacity>
+         </View>
       </CameraView>
     </View>
   );
@@ -160,8 +178,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'transparent',
-    margin: 64,
+    // alignItems: 'flex-end',
+    // justifyContent: 'flex-end',
+    marginTop: 45,
+    marginRight: 10
   },
   button: {
     flex: 1,
