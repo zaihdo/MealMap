@@ -140,6 +140,9 @@ export default function App() {
     )
   }
 
+  function toggleCameraMode(value:CameraMode) {
+    setCameraMode(value);
+  }
   function toggleCameraFacing() {
     setFacing(current => (current === 'back' ? 'front' : 'back'));
   }
@@ -150,14 +153,14 @@ export default function App() {
           <MainRowActions 
             cameraMode={cameraMode} 
             isRecording={false}
-            handleTakePicture={() => {}}
+            handleTakePicture={toggleCameraFacing}
           />
-          <BottomRowTools></BottomRowTools>
-        <View style={styles.buttonContainer}>
+          <BottomRowTools cameraMode={cameraMode} setCameraMode={setCameraMode}></BottomRowTools>
+        {/* <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
             <Text style={styles.text}>Flip Camera</Text>
           </TouchableOpacity>
-         </View>
+         </View> */}
       </CameraView>
     </View>
   );

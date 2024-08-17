@@ -5,22 +5,28 @@ import { Link } from 'expo-router'
 import { ThemedText } from './ThemedText'
 import { CameraMode } from 'expo-camera'
 
-export default function BottomRowTools() {
- const [cameraMode, setCameraMode] = useState<CameraMode>("picture");
+interface BottomRowToolsProps {
+    cameraMode: CameraMode;
+    setCameraMode: (value: CameraMode) => void;
+}
+export default function BottomRowTools({cameraMode, setCameraMode}: BottomRowToolsProps) {
+//  const [cameraMode, setCameraMode] = useState<CameraMode>("picture");
 
- function toggleCamearMode() {
+ function toggleCameraMode() {
     setCameraMode(cameraMode === "picture" ? "video" : "picture");
  }
   return (
     <View style={[styles.bottomContainer, styles.directionRowItemsCenter]}>
         <Link href={"/media-library"} asChild>
+        <TouchableOpacity>
             <IconButton iosName={'photo.stack'} androidName={'library'}/>
+        </TouchableOpacity>
         </Link>
         <View style={styles.directionRowItemsCenter}>
-            <TouchableOpacity onPress={toggleCamearMode}>
+            <TouchableOpacity onPress={toggleCameraMode}>
                 <ThemedText style={cameraMode == "picture" ? {fontWeight: 'bold'} : {fontWeight: "black"}}>Picture</ThemedText>
             </TouchableOpacity>
-            <TouchableOpacity onPress={toggleCamearMode}>
+            <TouchableOpacity onPress={toggleCameraMode}>
                 <ThemedText style={cameraMode == "video" ? {fontWeight: 'bold'} : {fontWeight: "black"}}>Video</ThemedText>
             </TouchableOpacity>
         </View>

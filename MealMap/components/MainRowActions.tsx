@@ -17,14 +17,11 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
   const [assets, setAssets] = React.useState<Asset[]>([]);
 
   async function getAlbums() {
-    const fetchedAlbums = await getAlbumsAsync();
     const albumAssets = await getAssetsAsync({
-        album: fetchedAlbums[0],
         mediaType: "photo",
         sortBy: "creationTime",
         first: 4
     });
-    console.log(albumAssets);
     setAssets(albumAssets.assets);
   }
 
@@ -33,21 +30,10 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
   }, [assets])
   return (
     <View style={styles.container}>
-        <ScrollView horizontal={true} contentContainerStyle={{gap: 4}} showsHorizontalScrollIndicator={false}>
-        {[0, 1, 2].map((item) => (
-            <SymbolView
-            key={item}
-            name="photo.circle"
-            size={40}
-            type="hierarchical"
-            tintColor={"white"}
-        />
-        ))}       
-        </ScrollView>
         <FlatList
             data={assets}
             horizontal
-            showsHorizontalScrollIndicator={true}
+            showsHorizontalScrollIndicator={false}
             inverted
             contentContainerStyle={{gap: 6}}
             renderItem={({item}) => (
@@ -62,7 +48,7 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
                 />
             )}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleTakePicture}>
             <SymbolView 
             name={
                 cameraMode=== "picture"
@@ -81,7 +67,7 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
             </SymbolView>    
         </TouchableOpacity> 
         <ScrollView horizontal={true} contentContainerStyle={{gap: 4}} showsHorizontalScrollIndicator={false}>
-        {[0, 1, 2,].map((item) => (
+        {[0, 1, 2, 4].map((item) => (
             <SymbolView
             key={item}
             name="photo"
