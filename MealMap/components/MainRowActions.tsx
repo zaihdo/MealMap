@@ -1,5 +1,6 @@
 import { Colors } from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
+import { CameraMode } from 'expo-camera';
 import { Image } from 'expo-image';
 import { Asset, getAlbumsAsync, getAssetsAsync } from 'expo-media-library';
 import { SymbolView } from 'expo-symbols';
@@ -8,13 +9,17 @@ import { TouchableOpacity, View, StyleSheet, ScrollView, FlatList } from 'react-
 
 interface MainRowActionProps {
     handleTakePicture: ()=> void;
+    cameraMode: CameraMode;
+    isRecording: boolean;
 }
 
-export default function MainRowActions(handleTakePicture: MainRowActionProps) {
+export default function MainRowActions({handleTakePicture, cameraMode, isRecording}: MainRowActionProps) {
   const [assets, setAssets] = React.useState<Asset[]>([]);
 
   async function getAlbums() {
+    const fetchedAlbums = await getAlbumsAsync();
     const albumAssets = await getAssetsAsync({
+        album: fetchedAlbums[0],
         mediaType: "photo",
         sortBy: "creationTime",
         first: 4
@@ -48,7 +53,7 @@ export default function MainRowActions(handleTakePicture: MainRowActionProps) {
             renderItem={({item}) => (
                 <Image
                     key={item.id}
-                    source={item.url}
+                    source={item.uri}
                     style={{
                         width: 40,
                         height: 40,
@@ -58,19 +63,31 @@ export default function MainRowActions(handleTakePicture: MainRowActionProps) {
             )}
         />
         <TouchableOpacity>
-            <SymbolView name={'circle'} size={90} type='hierarchical' tintColor={Colors.dark.snapPrimary}
-                fallback={<Ionicons size={90} name={'add-circle'} color={Colors.dark.snapPrimary} />}
+            <SymbolView 
+            name={
+                cameraMode=== "picture"
+                ? "circle" : isRecording ? "record.circle" : "circle.circle" } 
+            size={90} type='hierarchical' 
+            tintColor={isRecording ? Colors.dark.snapPrimary : "white"}
+            animationSpec={{
+                effect: {
+                    type: isRecording ? "pulse" : "bounce"
+                },
+                repeating: isRecording
+            }}
+
+            fallback={<Ionicons size={90} name={'add-circle'} color={Colors.dark.snapPrimary} />}
             >
             </SymbolView>    
         </TouchableOpacity> 
         <ScrollView horizontal={true} contentContainerStyle={{gap: 4}} showsHorizontalScrollIndicator={false}>
-        {[0, 1, 2].map((item) => (
+        {[0, 1, 2,].map((item) => (
             <SymbolView
             key={item}
             name="photo"
             size={40}
             type="hierarchical"
-            tintColor={"transparent"}
+            tintColor={"white"}
         />
         ))}       
         </ScrollView>
