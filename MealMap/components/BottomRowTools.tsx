@@ -3,15 +3,19 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import IconButton from './IconButton'
 import { Link } from 'expo-router'
 import { ThemedText } from './ThemedText'
-import { CameraMode } from 'expo-camera'
+import { CameraMode, CameraType } from 'expo-camera'
 
 interface BottomRowToolsProps {
     cameraMode: CameraMode;
     setCameraMode: (value: CameraMode) => void;
+    cameraFacing: CameraType;
+    setCameraFacing: (value: CameraType) => void;
 }
-export default function BottomRowTools({cameraMode, setCameraMode}: BottomRowToolsProps) {
-//  const [cameraMode, setCameraMode] = useState<CameraMode>("picture");
+export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing, setCameraFacing}: BottomRowToolsProps) {
 
+ function toggleCameraFacing() {
+    setCameraFacing(cameraFacing === "back" ? "front" : "back");
+ }
  function toggleCameraMode() {
     setCameraMode(cameraMode === "picture" ? "video" : "picture");
  }
@@ -30,7 +34,12 @@ export default function BottomRowTools({cameraMode, setCameraMode}: BottomRowToo
                 <ThemedText style={cameraMode == "video" ? {fontWeight: 'bold'} : {fontWeight: "black"}}>Video</ThemedText>
             </TouchableOpacity>
         </View>
-        <IconButton iosName='magnifyingglass' androidName='add'></IconButton>
+        <IconButton
+           iosName="camera.rotate"
+           androidName="flash"
+           onPress={toggleCameraFacing}
+          >
+        </IconButton>
     </View>
     )
 }

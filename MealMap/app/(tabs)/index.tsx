@@ -155,7 +155,7 @@ export default function App() {
             isRecording={false}
             handleTakePicture={toggleCameraFacing}
           />
-          <BottomRowTools cameraMode={cameraMode} setCameraMode={setCameraMode}></BottomRowTools>
+          <BottomRowTools cameraMode={cameraMode} setCameraMode={setCameraMode} cameraFacing={facing} setCameraFacing={setFacing}></BottomRowTools>
         {/* <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
             <Text style={styles.text}>Flip Camera</Text>
