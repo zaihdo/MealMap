@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import IconButton from './IconButton'
 import { Link } from 'expo-router'
@@ -12,19 +12,20 @@ interface BottomRowToolsProps {
     setCameraFacing: (value: CameraType) => void;
 }
 export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing, setCameraFacing}: BottomRowToolsProps) {
+    const buttonRef = useRef<TouchableOpacity>(null);
 
  function toggleCameraFacing() {
     setCameraFacing(cameraFacing === "back" ? "front" : "back");
  }
  function toggleCameraMode() {
     setCameraMode(cameraMode === "picture" ? "video" : "picture");
+    console.log("ssss"); 
  }
+
   return (
     <View style={[styles.bottomContainer, styles.directionRowItemsCenter]}>
         <Link href={"/media-library"} asChild>
-        <TouchableOpacity>
-            <IconButton iosName={'photo.stack'} androidName={'library'}/>
-        </TouchableOpacity>
+            <IconButton ref={buttonRef} iosName={'photo'} androidName={'library'} onPress={() => {}}/>
         </Link>
         <View style={styles.directionRowItemsCenter}>
             <TouchableOpacity onPress={toggleCameraMode}>
@@ -35,6 +36,7 @@ export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing,
             </TouchableOpacity>
         </View>
         <IconButton
+           ref={buttonRef}
            iosName="camera.rotate"
            androidName="flash"
            onPress={toggleCameraFacing}
