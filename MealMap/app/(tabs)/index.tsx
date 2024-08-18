@@ -102,6 +102,8 @@
 import BottomRowTools from '@/components/BottomRowTools';
 import IconButton from '@/components/IconButton';
 import MainRowActions from '@/components/MainRowActions';
+import PictureView from '@/components/PictureView';
+import VideoViewComponent from '@/components/VideoView';
 import { CameraView, CameraType, useCameraPermissions, CameraMode } from 'expo-camera';
 import {usePermissions} from 'expo-media-library';
 import React from 'react';
@@ -114,6 +116,8 @@ export default function App() {
   const cameraRef = React.useRef<CameraView>(null);
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
   const [mediaPermission, requestMediaPermission] = usePermissions();
+  const [picture, setPicture] = useState<string>("");
+  const [video, setVideo] = useState<string>('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4');
 
   if (!cameraPermission && !mediaPermission) {
     // Camera permissions are still loading.
@@ -140,6 +144,16 @@ export default function App() {
     )
   }
 
+  if (picture) return <PictureView picture={picture} setPicture={setPicture}/>
+  
+  if (video) return <VideoViewComponent video={video} setVideo={setVideo}/>
+  
+  async function handleTakePicture() {
+    const response = await cameraRef.current?.takePictureAsync({});
+    console.log(response!.uri);
+    setPicture(response!.uri);
+  }
+
   function toggleCameraMode(value:CameraMode) {
     setCameraMode(value);
   }
@@ -153,14 +167,9 @@ export default function App() {
           <MainRowActions 
             cameraMode={cameraMode} 
             isRecording={false}
-            handleTakePicture={toggleCameraFacing}
+            handleTakePicture={handleTakePicture}
           />
           <BottomRowTools cameraMode={cameraMode} setCameraMode={setCameraMode} cameraFacing={facing} setCameraFacing={setFacing}></BottomRowTools>
-        {/* <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-         </View> */}
       </CameraView>
     </View>
   );
