@@ -1,4 +1,15 @@
-# EAS/Expo Project
+![Untitled-5](https://github.com/user-attachments/assets/a445a5ce-4a94-495f-b4db-93c7d38e48be) 
+
+#BudgetBites
+
+## Overview
+
+A Recipe generator app to aid home chefs / meal preppers with inspiration for things to cook.
+
+A user can take pictures of the items in their fridge and get back recipes to make. Additionally, they can post images of a recipe or a meal and get back the ingredients they need to purchase.
+
+
+## Development
 
 This project is built using Expo, a popular framework for building cross-platform mobile applications using React Native. The following instructions will guide you through the process of cloning, installing, and running the project on different setups.
 
