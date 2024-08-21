@@ -109,8 +109,15 @@
 //   },
 // });
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, TextInput, Text, TouchableOpacity, Keyboard } from 'react-native';
+import { StyleSheet, View, Button, TextInput, Text, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import CameraViewComponent from '@/components/Camera';
+import RecentActivity from '@/components/RecentActivity';
+
+const recentData = [
+  { id: '1', title: 'Uploaded Recipe: Spaghetti Bolognese', daysAgo: 2 },
+  { id: '2', title: 'Grocery List: Weekly Shopping', daysAgo: 3 },
+  { id: '3', title: 'Grocery List: Meal Prep ingredients', daysAgo: 5 },
+];
 
 export default function App() {
   const [showCamera, setShowCamera] = useState(false);
@@ -124,39 +131,43 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined} // Adjust behavior for iOS and Android
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0} // Adjust offset based on platform
+    >
       {showCamera ? (
         <CameraViewComponent onClose={() => setShowCamera(false)} />
       ) : (
-        <View style={styles.contentContainer}>
-          <Text style={styles.welcomeText}>Welcome to Your App</Text>
+        <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
+          <Text style={styles.welcomeText}>Welcome to BudgetBites</Text>
+          {/* {uploadedText ? (
+            <Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
+          ) : null} */}
           <TextInput
             style={styles.textInput}
-            placeholder="Type something..."
+            placeholder="Enter your ingredients..."
             value={inputText}
             onChangeText={setInputText}
             multiline
             onSubmitEditing={handleUpload} // Trigger upload when the "Enter" key is pressed
             blurOnSubmit={true} // Dismiss keyboard when submitting
             placeholderTextColor="#888"
-            returnKeyType="done" // Change the "Enter" key to "Done"
+            returnKeyType="default" // Change the "Enter" key to "Done"
           />
 
           <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
-            <Text style={styles.buttonText}>Upload</Text>
+            <Text style={styles.buttonText}>Submit List</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.cameraButton} onPress={() => setShowCamera(true)}>
-            <Text style={styles.buttonText}>Open Camera</Text>
+            <Text style={styles.buttonText}>Upload Picture</Text>
           </TouchableOpacity>
 
-          {uploadedText ? (
-            <Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
-          ) : null}
-        </View>
+          <RecentActivity data={recentData} />
+        </ScrollView>
       )}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -170,12 +181,18 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 28,
     fontWeight: '600',
-    textAlign: 'center',
+    textAlign: 'left',
     marginBottom: 30,
+    marginTop: 30,
     color: '#333',
+    flex: 2,
+    flexDirection: "row",
+    width: "100%",
   },
   contentContainer: {
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 20, // Ensure padding at the bottom so content is not cut off
   },
   textInput: {
     width: '100%',
@@ -203,6 +220,7 @@ const styles = StyleSheet.create({
   cameraButton: {
     width: '100%',
     padding: 15,
+    marginBottom: 20,
     borderRadius: 10,
     backgroundColor: '#2196F3',
     alignItems: 'center',
@@ -216,6 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#555',
     marginTop: 20,
+    marginBottom: 20,
     textAlign: 'center',
   },
 });
