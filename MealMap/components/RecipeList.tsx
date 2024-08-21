@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 10,
+    marginTop: 20,
     color: '#333',
   },
   listContent: {
