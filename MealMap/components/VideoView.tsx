@@ -1,8 +1,6 @@
-import { CameraType } from "expo-camera";
-import React, { useRef, useState } from "react";
-import { TouchableOpacity, View, StyleSheet, Alert } from "react-native";
+import React, { useRef } from "react";
+import { View, StyleSheet, Alert } from "react-native";
 import IconButton from "./IconButton";
-import { Image } from "expo-image";
 import { saveToLibraryAsync } from "expo-media-library";
 import { useVideoPlayer, VideoView } from "expo-video";
 
