@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, TextInput, Text, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { StyleSheet, TextInput, Text, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import CameraViewComponent from '@/components/Camera';
 import RecentActivity from '@/components/RecentActivity';
 

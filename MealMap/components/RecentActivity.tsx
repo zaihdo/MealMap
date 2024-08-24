@@ -22,12 +22,6 @@ export default function RecentActivity({ data }: RecentActivityProps) {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    // backgroundColor: '#f9f9f9',
-    // borderRadius: 15,
-    // shadowColor: '#000',
-    // shadowOpacity: 0.1,
-    // shadowOffset: { width: 0, height: 5 },
-    // elevation: 5,
   },
   itemContainer: {
     paddingVertical: 12,

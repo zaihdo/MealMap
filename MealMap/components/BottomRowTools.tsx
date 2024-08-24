@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import IconButton from './IconButton'
 import { Link } from 'expo-router'
