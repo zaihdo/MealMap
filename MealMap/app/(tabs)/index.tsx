@@ -45,12 +45,13 @@ export default function App() {
         <CameraViewComponent onSave={handlePictureSave} onClose={() => setShowCamera(false)} />
       ) : (
         <ScrollView style={{ flex: 1 }}contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
-          <Text style={styles.welcomeText}>Welcome to BudgetBites</Text>
+          <Text style={styles.welcomeText}>Forage | Find | Feast</Text>
           {/* {uploadedText ? (
             <Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
           ) : null} */} 
           {image ? (
               <>
+                <Text style={styles.subheadingText}>Preview</Text>
                 <Image source={image} style={{width: '100%', height: 300, borderRadius: 25, marginBottom: 10}}></Image>
                 <TouchableOpacity style={styles.cameraButton} onPress={() => {new DataService().uploadImage(image)}}>
                   <Text style={styles.buttonText}>Upload Image</Text>

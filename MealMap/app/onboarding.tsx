@@ -49,7 +49,7 @@ export default function OnboardingScreen() {
             name="camera.macro.circle"
             size={250}
             type="hierarchical"
-            tintColor={Colors.dark.snapPrimary}
+            tintColor={Colors.dark.foravaGreen}
             animationSpec={{ 
                 effect: {
                     type: "bounce"

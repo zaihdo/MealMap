@@ -18,6 +18,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
   },
+  subheadingText: {
+    fontSize: 28,
+    fontWeight: "600",
+    textAlign: "left",
+    paddingBottom: 10,
+    color: "#333",
+    flex: 2,
+    flexDirection: "row",
+    width: "100%",
+  },
   contentContainer: {
     alignItems: "center",
     justifyContent: "center",

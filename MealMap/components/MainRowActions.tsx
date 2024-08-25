@@ -54,7 +54,7 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
                 cameraMode=== "picture"
                 ? "circle" : isRecording ? "record.circle" : "circle.circle" } 
             size={90} type='hierarchical' 
-            tintColor={isRecording ? Colors.dark.snapPrimary : "#4CAF50"}
+            tintColor={isRecording ? Colors.dark.foravaGreen : "#4CAF50"}
             animationSpec={{
                 effect: {
                     type: isRecording ? "pulse" : "bounce"
@@ -62,7 +62,7 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
                 repeating: isRecording
             }}
 
-            fallback={<Ionicons size={90} name={'add-circle'} color={Colors.dark.snapPrimary} />}
+            fallback={<Ionicons size={90} name={'add-circle'} color={Colors.dark.foravaGreen} />}
             >
             </SymbolView>    
         </TouchableOpacity> 
