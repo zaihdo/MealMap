@@ -93,9 +93,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   contentContainer: {
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // flex: 1,
     paddingBottom: 20, // Ensure padding at the bottom so content is not cut off
   },
   textInput: {
