@@ -7,18 +7,22 @@ import { saveToLibraryAsync } from "expo-media-library";
 interface PictureViewProps {
     picture: string;
     setPicture: React.Dispatch<React.SetStateAction<string>>
+    onClose: () => void
+    onSave: (picture: string) => void
 }
-export default function PictureView({picture, setPicture}: PictureViewProps) {
+export default function PictureView({picture, setPicture, onClose, onSave}: PictureViewProps) {
     
     return (
          <View>
           <View style={styles.rightButtonContainer}>
             <IconButton
-              iosName="arrow.down"
+              iosName="arrow.up"
               androidName="save"
               onPress={()=> {
-                saveToLibraryAsync(picture)
-                Alert.alert("Saved to gallery")
+                // saveToLibraryAsync(picture);
+                Alert.alert("Uploaded to HomeScreen");
+                // onClose();
+                onSave(picture);
               }}
             />
           </View>

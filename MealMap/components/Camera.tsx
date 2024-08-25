@@ -7,7 +7,12 @@ import MainRowActions from '@/components/MainRowActions';
 import PictureView from '@/components/PictureView';
 import VideoViewComponent from '@/components/VideoView';
 
-export default function CameraViewComponent({ onClose }: { onClose: () => void }) {
+interface CameraViewProps {
+  onClose: () => void;
+  onSave: (picture: string) => void;
+}
+
+export default function CameraViewComponent({ onClose, onSave }: CameraViewProps) {
   const [facing, setFacing] = useState<CameraType>('back');
   const [cameraMode, setCameraMode] = useState<CameraMode>("picture");
   const cameraRef = useRef<CameraView>(null);
@@ -55,7 +60,7 @@ export default function CameraViewComponent({ onClose }: { onClose: () => void }
     }
   }
   
-  if (picture) return <PictureView picture={picture} setPicture={setPicture} />;
+  if (picture) return <PictureView onSave={onSave} setPicture={setPicture} onClose={onClose} picture={picture} />;
   if (video) return <VideoViewComponent video={video} setVideo={setVideo} />;
   return (
     <View style={styles.container}>
