@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import IconButton from './IconButton'
 import { Link } from 'expo-router'
-import { ThemedText } from './ThemedText'
+import { ThemedText } from './ThemedText' // video view disabled
 import { CameraMode, CameraType } from 'expo-camera'
 
 interface BottomRowToolsProps {
@@ -17,6 +17,8 @@ export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing,
  function toggleCameraFacing() {
     setCameraFacing(cameraFacing === "back" ? "front" : "back");
  }
+
+ // video view disabled
  function toggleCameraMode() {
     setCameraMode(cameraMode === "picture" ? "video" : "picture");
     console.log("ssss"); 
@@ -27,14 +29,15 @@ export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing,
         <Link href={"/media-library"} asChild>
             <IconButton ref={buttonRef} iosName={'photo'} androidName={'library'} onPress={() => {}}/>
         </Link>
-        <View style={styles.directionRowItemsCenter}>
+        {/* disabling video view */}
+        {/* <View style={styles.directionRowItemsCenter}>
             <TouchableOpacity onPress={toggleCameraMode}>
                 <ThemedText style={cameraMode == "picture" ? {fontWeight: 'bold'} : {fontWeight: "black"}}>Picture</ThemedText>
             </TouchableOpacity>
             <TouchableOpacity onPress={toggleCameraMode}>
                 <ThemedText style={cameraMode == "video" ? {fontWeight: 'bold'} : {fontWeight: "black"}}>Video</ThemedText>
             </TouchableOpacity>
-        </View>
+        </View> */}
         <IconButton
            ref={buttonRef}
            iosName="camera.rotate"

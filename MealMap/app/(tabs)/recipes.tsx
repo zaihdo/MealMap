@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
 import RecipeList from '@/components/RecipeList'; // Assuming you've placed the RecipeList in the components directory
 
 const recipes = [

@@ -1,6 +1,5 @@
-import { CameraType } from "expo-camera";
-import React, { useState } from "react";
-import { TouchableOpacity, View, StyleSheet, Alert } from "react-native";
+import React from "react";
+import { View, StyleSheet, Alert } from "react-native";
 import IconButton from "./IconButton";
 import { Image } from "expo-image";
 import { saveToLibraryAsync } from "expo-media-library";
@@ -8,18 +7,22 @@ import { saveToLibraryAsync } from "expo-media-library";
 interface PictureViewProps {
     picture: string;
     setPicture: React.Dispatch<React.SetStateAction<string>>
+    onClose: () => void
+    onSave: (picture: string) => void
 }
-export default function PictureView({picture, setPicture}: PictureViewProps) {
+export default function PictureView({picture, setPicture, onClose, onSave}: PictureViewProps) {
     
     return (
          <View>
           <View style={styles.rightButtonContainer}>
             <IconButton
-              iosName="arrow.down"
+              iosName="arrow.up"
               androidName="save"
               onPress={()=> {
-                saveToLibraryAsync(picture)
-                Alert.alert("Saved to gallery")
+                // saveToLibraryAsync(picture);
+                Alert.alert("Uploaded to HomeScreen");
+                // onClose();
+                onSave(picture);
               }}
             />
           </View>

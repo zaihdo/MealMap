@@ -30,7 +30,7 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
   }, [assets])
   return (
     <View style={styles.container}>
-        <FlatList
+        {/* <FlatList
             data={assets}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -47,14 +47,14 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
                     }}
                 />
             )}
-        />
+        /> */}
         <TouchableOpacity onPress={handleTakePicture}>
             <SymbolView 
             name={
                 cameraMode=== "picture"
                 ? "circle" : isRecording ? "record.circle" : "circle.circle" } 
             size={90} type='hierarchical' 
-            tintColor={isRecording ? Colors.dark.snapPrimary : "white"}
+            tintColor={isRecording ? Colors.dark.foravaGreen : "#4CAF50"}
             animationSpec={{
                 effect: {
                     type: isRecording ? "pulse" : "bounce"
@@ -62,11 +62,11 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
                 repeating: isRecording
             }}
 
-            fallback={<Ionicons size={90} name={'add-circle'} color={Colors.dark.snapPrimary} />}
+            fallback={<Ionicons size={90} name={'add-circle'} color={Colors.dark.foravaGreen} />}
             >
             </SymbolView>    
         </TouchableOpacity> 
-        <ScrollView horizontal={true} contentContainerStyle={{gap: 4}} showsHorizontalScrollIndicator={false}>
+        {/* <ScrollView horizontal={true} contentContainerStyle={{gap: 4}} showsHorizontalScrollIndicator={false}>
         {[0, 1, 2, 4].map((item) => (
             <SymbolView
             key={item}
@@ -76,7 +76,7 @@ export default function MainRowActions({handleTakePicture, cameraMode, isRecordi
             tintColor={"white"}
         />
         ))}       
-        </ScrollView>
+        </ScrollView> */}
     </View>
 
   )

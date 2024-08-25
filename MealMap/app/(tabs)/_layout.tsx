@@ -5,7 +5,7 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import useIsFirstOpen from '@/hooks/useIsFirstOpen';
-import { TouchableOpacity, View, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function TabLayout() {
@@ -23,8 +23,8 @@ export default function TabLayout() {
       <Tabs.Screen
       name="index"
       options={{
-        headerShown: true,
-        title: 'PriceTrackGrocer', // We will set a custom headerTitle, so no default title
+        headerShown: false,
+        title: 'Home', // We will set a custom headerTitle, so no default title
         headerTitleStyle: {
           fontSize: 28, // Enlarge the text
           fontWeight: 'bold', // Make the text bold
@@ -43,8 +43,9 @@ export default function TabLayout() {
           </TouchableOpacity>
         ),
         tabBarIcon: ({ color, focused }) => (
-          <Ionicons name={focused ? 'camera' : 'home-outline'} size={24} color={color} />
+          <Ionicons name={focused ? 'home' : 'home-outline'} size={24} color={color} />
         ),
+ 
       }}
     />
       <Tabs.Screen
@@ -62,6 +63,16 @@ export default function TabLayout() {
           title: 'Recipes',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'fast-food' : 'fast-food-outline'} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="GroceryList"
+        options={{
+          title: 'GroceryList',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'cart' : 'cart-outline'} color={color} />
           ),
         }}
       />
