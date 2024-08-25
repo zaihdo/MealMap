@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     backgroundColor: "#fefefe",
   },
   welcomeText: {
@@ -51,14 +51,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#4CAF50",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   cameraButton: {
     width: "100%",
     padding: 15,
-    marginBottom: 20,
+    marginBottom: 10,
     borderRadius: 10,
-    backgroundColor: "#2196F3",
+    backgroundColor: "#4CAF50",
     alignItems: "center",
   },
   buttonText: {

@@ -53,7 +53,7 @@ export default function App() {
               <>
                 <Image source={image} style={{width: '100%', height: 300, borderRadius: 25, marginBottom: 10}}></Image>
                 <TouchableOpacity style={styles.cameraButton} onPress={() => {new DataService().uploadImage(image)}}>
-                  <Text style={styles.buttonText}>📸</Text>
+                  <Text style={styles.buttonText}>Upload Image</Text>
                 </TouchableOpacity>
               </>
               //<Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
@@ -74,13 +74,13 @@ export default function App() {
             <Text style={styles.buttonText}>Submit List</Text> 
           </TouchableOpacity> */}
 
-          <TouchableOpacity style={styles.uploadButton} onPress={() => router.push('/GroceryList')}>
+          <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/GroceryList')}>
             <Text style={styles.buttonText}>Create Grocery List</Text> 
           </TouchableOpacity>
 
           {!image ? (
             <TouchableOpacity style={styles.cameraButton} onPress={() => setShowCamera(true)}>
-            <Text style={styles.buttonText}>📸</Text>
+            <Text style={styles.buttonText}>Upload Recipe</Text>
           </TouchableOpacity>
           ): null}
 
@@ -89,7 +89,7 @@ export default function App() {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/recipes')}>
-            <Text style={styles.buttonText}>Saved Recipes</Text>
+            <Text style={styles.buttonText}>Recommended Recipes</Text>
           </TouchableOpacity>
 
           <RecentActivity data={recentData} />
@@ -98,72 +98,3 @@ export default function App() {
     </KeyboardAvoidingView>
   );
 }
-
-// moved to styles.tsx 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     paddingHorizontal: 20,
-//     backgroundColor: '#f5f5f5',
-//   },
-//   welcomeText: {
-//     fontSize: 28,
-//     fontWeight: '600',
-//     textAlign: 'left',
-//     marginBottom: 30,
-//     marginTop: 30,
-//     color: '#333',
-//     flex: 2,
-//     flexDirection: "row",
-//     width: "100%",
-//   },
-//   contentContainer: {
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     paddingBottom: 20, // Ensure padding at the bottom so content is not cut off
-//   },
-//   textInput: {
-//     width: '100%',
-//     padding: 15,
-//     fontSize: 16,
-//     backgroundColor: '#fff',
-//     borderRadius: 10,
-//     marginBottom: 20,
-//     shadowColor: '#000',
-//     shadowOpacity: 0.1,
-//     shadowOffset: { width: 0, height: 3 },
-//     elevation: 3,
-//     minHeight: 50, // Minimum height for the text box
-//     maxHeight: 150, // Set maximum height to prevent overflow
-//     textAlignVertical: 'top', // Align text at the top
-//   },
-//   uploadButton: {
-//     width: '100%',
-//     padding: 15,
-//     borderRadius: 10,
-//     backgroundColor: '#4CAF50',
-//     alignItems: 'center',
-//     marginBottom: 20,
-//   },
-//   cameraButton: {
-//     width: '100%',
-//     padding: 15,
-//     marginBottom: 20,
-//     borderRadius: 10,
-//     backgroundColor: '#2196F3',
-//     alignItems: 'center',
-//   },
-//   buttonText: {
-//     fontSize: 18,
-//     color: '#fff',
-//     fontWeight: '500',
-//   },
-//   uploadedText: {
-//     fontSize: 16,
-//     color: '#555',
-//     marginTop: 20,
-//     marginBottom: 20,
-//     textAlign: 'center',
-//   },
-// });

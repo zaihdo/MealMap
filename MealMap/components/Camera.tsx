@@ -6,6 +6,7 @@ import BottomRowTools from '@/components/BottomRowTools';
 import MainRowActions from '@/components/MainRowActions';
 import PictureView from '@/components/PictureView';
 import VideoViewComponent from '@/components/VideoView';
+import IconButton from './IconButton';
 
 interface CameraViewProps {
   onClose: () => void;
@@ -63,7 +64,7 @@ export default function CameraViewComponent({ onClose, onSave }: CameraViewProps
   if (picture) return <PictureView onSave={onSave} setPicture={setPicture} onClose={onClose} picture={picture} />;
   if (video) return <VideoViewComponent video={video} setVideo={setVideo} />;
   return (
-    <View style={styles.container}>
+    <View style={{flex: 2, marginHorizontal: "-3%", alignItems: "stretch", justifyContent: "center"}}>
       <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
         <MainRowActions
           cameraMode={cameraMode}
@@ -76,22 +77,32 @@ export default function CameraViewComponent({ onClose, onSave }: CameraViewProps
           cameraFacing={facing}
           setCameraFacing={setFacing}
         />
-        <Button title="Close Camera" onPress={onClose} />
+        <View style={styles.leftButtonContainer}>
+            <IconButton
+              iosName="xmark"
+              androidName="close"
+              onPress={onClose}
+            />
+          </View>
       </CameraView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
   message: {
     textAlign: 'center',
     paddingBottom: 10,
   },
   camera: {
     flex: 1,
+    alignItems: 'stretch',
+  },
+  leftButtonContainer: {
+    position: "absolute",
+    zIndex: 1,
+    left: 6,
+    paddingTop: 50,
+    gap: 10
   },
 });
