@@ -4,6 +4,7 @@ import { StyleSheet, TextInput, Text, TouchableOpacity, Keyboard, KeyboardAvoidi
 import CameraViewComponent from '@/components/Camera';
 import RecentActivity from '@/components/RecentActivity';
 import { Image } from 'expo-image';
+import DataService from '@/services/dataService';
 
 const recentData = [
   { id: '1', title: 'Uploaded Recipe: Spaghetti Bolognese', daysAgo: 2 },
@@ -44,7 +45,12 @@ export default function App() {
             <Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
           ) : null} */}
           {image ? (
-              <Image source={image} style={{width: '100%', height: 300, borderRadius: 25, marginBottom: 10}}></Image>
+              <>
+                <Image source={image} style={{width: '100%', height: 300, borderRadius: 25, marginBottom: 10}}></Image>
+                <TouchableOpacity style={styles.cameraButton} onPress={() => {new DataService().uploadImage(image)}}>
+                  <Text style={styles.buttonText}>📸</Text>
+                </TouchableOpacity>
+              </>
               //<Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
           ) : null}
           <TextInput
@@ -63,9 +69,11 @@ export default function App() {
             <Text style={styles.buttonText}>Submit List</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.cameraButton} onPress={() => setShowCamera(true)}>
-            <Text style={styles.buttonText}>Upload Picture</Text>
+          {!image ? (
+            <TouchableOpacity style={styles.cameraButton} onPress={() => setShowCamera(true)}>
+            <Text style={styles.buttonText}>📸</Text>
           </TouchableOpacity>
+          ): null}
 
           <RecentActivity data={recentData} />
         </ScrollView>
@@ -123,7 +131,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 20,
     borderRadius: 10,
-    backgroundColor: '#2196F3',
+    backgroundColor: '#4CAF50',
     alignItems: 'center',
   },
   buttonText: {

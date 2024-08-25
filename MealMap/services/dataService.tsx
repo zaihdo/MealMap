@@ -7,11 +7,13 @@ class DataService {
 
     }
 
-    private async hanleResponse(response: Response) {
+    private async handleResponse(response: Response) {
+        console.log(response.text());
         if (!response.ok) {
             const errorData = await response.json();
             throw new Error(errorData.message || "Something went wrong");
         }
+
         return response.json();
     }
 
@@ -32,9 +34,11 @@ class DataService {
                 'Content-Type': 'multipart/form-data',
             },
             body: formData
-        });
+        })
+            .then(response => response.text())
+            .then(data => {console.log('Recipe markfdown', data);})
+            .catch(error => {console.error('Error uploading image', error.message)})
 
-        return this.hanleResponse(response);
     }
 }
 
