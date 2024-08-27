@@ -21,7 +21,6 @@ export default function PictureView({picture, setPicture, onClose, onSave}: Pict
               containerStyle={{backgroundColor: "green"}}
               onPress={()=> {
                 // saveToLibraryAsync(picture);
-                Alert.alert("Uploaded to HomeScreen");
                 // onClose();
                 onSave(picture);
               }}
