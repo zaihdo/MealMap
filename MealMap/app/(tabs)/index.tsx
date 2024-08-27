@@ -35,6 +35,10 @@ export default function App() {
     console.log(image);
   }
 
+  const navigateToRecipeBreakdown = (image: string) => {
+    router.push({pathname: "/recipe-markdown", params: {imageProp: image}})
+  }
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -53,7 +57,7 @@ export default function App() {
               <>
                 <Text style={styles.subheadingText}>Preview</Text>
                 <Image source={image} style={{width: '100%', height: 300, borderRadius: 25, marginBottom: 10}}></Image>
-                <TouchableOpacity style={styles.cameraButton} onPress={() => {new DataService().uploadImage(image)}}>
+                <TouchableOpacity style={styles.cameraButton} onPress={() => {navigateToRecipeBreakdown(image)}}>
                   <Text style={styles.buttonText}>Upload Image</Text>
                 </TouchableOpacity>
               </>
