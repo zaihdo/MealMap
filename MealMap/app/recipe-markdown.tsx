@@ -2,6 +2,10 @@ import DataService from '@/services/dataService';
 import { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, SectionList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useGlobalSearchParams } from 'expo-router';
+import { Colors } from '@/constants/Colors';
+import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from '@/components/ThemedText';
+import styles from '@/components/styles';
 
 
 export default function RecipeMarkdown() {
@@ -27,16 +31,16 @@ export default function RecipeMarkdown() {
         };
 
         fetchRecipe();
-    }, [imageProp]);
+    }, []);
 
     const renderItem = ({ item }: { item: string }) => (
-        <View style={styles.card}>
-            <Text style={styles.cardText}>{item}</Text>
+        <View style={styles2.card}>
+            <Text style={styles2.cardText}>{item}</Text>
         </View>
     );
 
     const renderSectionHeader = ({ section }: { section: { title: string } }) => (
-        <Text style={styles.sectionTitle}>{section.title}</Text>
+        <Text style={styles2.sectionTitle}>{section.title}</Text>
     );
 
     if (loading) {
@@ -48,7 +52,6 @@ export default function RecipeMarkdown() {
     }
 
     const sections = [
-        { title: 'Title', data: [recipe.name] },
         { title: 'Description', data: [recipe.description] },
         { title: 'Ingredients', data: recipe.ingredients },
         { title: 'Steps', data: recipe.steps },
@@ -56,22 +59,34 @@ export default function RecipeMarkdown() {
     ];
 
     return (
-        <View style={styles.container}>
+        <View style={styles2.container}>
+            <ThemedView style={styles2.titleContainer}>
+             <ThemedText type="subtitle">{recipe.name}</ThemedText>
+            </ThemedView>
             <SectionList
+                style={styles2.sectionContainer}
                 sections={sections}
                 renderSectionHeader={renderSectionHeader}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index.toString()}
-                contentContainerStyle={styles.listContent}
+                contentContainerStyle={styles2.listContent}
             />
-            <TouchableOpacity style={styles.continueButton}>
-                <Text style={styles.continueButtonText}>Continue</Text>
-            </TouchableOpacity>
+            <View style={{flex: 0}}>
+            <TouchableOpacity style={styles.cameraButton}>
+            <Text style={styles.buttonText}>Get Ingredients</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.secondaryButton}>
+            <Text style={styles.secondaryButtonText}>Save Recipe</Text>
+          </TouchableOpacity>
+            </View>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
+const styles2 = StyleSheet.create({
+    sectionContainer: {
+        marginBottom: 25
+    },
     container: {
         flex: 1,
         padding: 16,
@@ -81,8 +96,8 @@ const styles = StyleSheet.create({
         flexGrow: 1,
     },
     sectionTitle: {
-        fontSize: 20,
-        fontWeight: '600',
+        fontSize: 16,
+        fontWeight: '800',
         marginBottom: 10,
         color: '#444',
     },
@@ -102,17 +117,17 @@ const styles = StyleSheet.create({
         color: '#555',
     },
     continueButton: {
-        backgroundColor: '#007AFF',
+        backgroundColor: Colors.dark.foravaGreen,
         borderRadius: 25,
         paddingVertical: 12,
         paddingHorizontal: 24,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20,
-        marginBottom: 30,
+        marginBottom: 10,
         alignSelf: 'center',
         position: 'absolute',
-        bottom: 30,
+        bottom: 10,
         left: 16,
         right: 16,
     },
@@ -120,5 +135,9 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         fontWeight: '600',
+    },
+    titleContainer: {
+        flexDirection: 'row',
+        gap: 8,
     },
 });
