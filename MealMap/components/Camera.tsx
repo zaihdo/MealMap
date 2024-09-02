@@ -64,7 +64,7 @@ export default function CameraViewComponent({ onClose, onSave }: CameraViewProps
   if (picture) return <PictureView onSave={onSave} setPicture={setPicture} onClose={onClose} picture={picture} />;
   if (video) return <VideoViewComponent video={video} setVideo={setVideo} />;
   return (
-    <View style={{flex: 2, marginHorizontal: "-3%", alignItems: "stretch", justifyContent: "center"}}>
+    <View style={{flex: 1, marginHorizontal: "-3%", alignItems: "stretch", justifyContent: "center"}}>
       <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
         <MainRowActions
           cameraMode={cameraMode}

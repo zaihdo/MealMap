@@ -31,7 +31,8 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="onboarding" options={{presentation: "fullScreenModal", headerShown: false, animation: "fade"}} />
-        <Stack.Screen name="media-library" options={{presentation: "modal"}} />
+        <Stack.Screen name="media-library" options={{presentation: "modal", animation: "default", headerShown: false} } />
+        <Stack.Screen name="recipe-markdown" options={{presentation: "modal", headerBackTitle: "Home"}}/>
         <Stack.Screen name="+not-found"/>
       </Stack>
     </ThemeProvider>

@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
@@ -71,9 +72,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#4CAF50",
     alignItems: "center",
   },
+  secondaryButton: {
+    width: "100%",
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#4CAF50",
+    alignItems: "center",
+  },
   buttonText: {
     fontSize: 18,
     color: "#fff",
+    fontWeight: "500",
+    textAlign: "center"
+  },
+  secondaryButtonText: {
+    fontSize: 18,
+    color: Colors.dark.foravaGreen,
     fontWeight: "500",
     textAlign: "center"
   },
