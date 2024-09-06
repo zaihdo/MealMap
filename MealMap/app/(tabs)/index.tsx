@@ -2,12 +2,14 @@
 
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, Text, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import { StyleSheet, TextInput, Text, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, ScrollView, View, SafeAreaView } from 'react-native';
 import CameraViewComponent from '@/components/Camera';
 import RecentActivity from '@/components/RecentActivity';
 import styles from '@/components/styles'
 import { Image } from 'expo-image';
 import DataService from '@/services/dataService';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const recentData = [
   { id: '1', title: 'Uploaded Recipe: Spaghetti Bolognese', daysAgo: 2 },
@@ -40,16 +42,21 @@ export default function App() {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined} // Adjust behavior for iOS and Android
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0} // Adjust offset based on platform
-    >
+    // <SafeAreaView style={styles.safeArea}>
+    //   <KeyboardAvoidingView
+    //   // style={styles.container}
+    //   behavior={Platform.OS === 'ios' ? 'padding' : undefined} // Adjust behavior for iOS and Android
+    //   keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0} // Adjust offset based on platform
+    // >
+    <>
       {showCamera ? (
         <CameraViewComponent onSave={handlePictureSave} onClose={() => setShowCamera(false)} />
+        
       ) : (
-        <ScrollView style={{ flex: 1 }}contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
-          <Text style={styles.welcomeText}>Forage | Find | Feast</Text>
+        <ParallaxScrollView
+      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
+      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
+          <Text style={styles.welcomeText}>Forava</Text>
           {/* {uploadedText ? (
             <Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
           ) : null} */} 
@@ -67,20 +74,17 @@ export default function App() {
               //<Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
           ) : (
             <>
-            <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/GroceryList')}>
-            <Text style={styles.buttonText}>Create Grocery List</Text> 
-            </TouchableOpacity>
-
             <TouchableOpacity style={styles.cameraButton} onPress={() => setShowCamera(true)}>
-              <Text style={styles.buttonText}>Upload Recipe</Text>
+              <Text style={styles.buttonText}>Upload Image</Text>
             </TouchableOpacity>
-            
-            <TouchableOpacity style={styles.cameraButton} onPress={handleUpload}>
-              <Text style={styles.buttonText}>Compare Prices</Text>
+            <TouchableOpacity style={styles.secondaryButton} onPress={() => router.push('/GroceryList')}>
+            <Text style={styles.secondaryButtonText}>Create Grocery List</Text> 
             </TouchableOpacity>
-
-            <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/recipes')}>
-              <Text style={styles.buttonText}>Recommended Recipes</Text>
+            <TouchableOpacity style={styles.secondaryButton} onPress={handleUpload}>
+              <Text style={styles.secondaryButtonText}>Compare Prices</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.secondaryButton} onPress={() => router.push('/recipes')}>
+              <Text style={styles.secondaryButtonText}>Recommended Recipes</Text>
             </TouchableOpacity>
             </>
 
@@ -105,8 +109,10 @@ export default function App() {
           </TouchableOpacity> */}
 
           <RecentActivity data={recentData} />
-        </ScrollView>
+          </ParallaxScrollView>
       )}
-    </KeyboardAvoidingView>
+      </>
+    // {/* </KeyboardAvoidingView> */}
+    // {/* // </SafeAreaView> */}
   );
 }
