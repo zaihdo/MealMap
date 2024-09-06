@@ -10,8 +10,10 @@ interface BottomRowToolsProps {
     setCameraMode: (value: CameraMode) => void;
     cameraFacing: CameraType;
     setCameraFacing: (value: CameraType) => void;
+    pickImage: () => void;
+    saveImage: () => void;
 }
-export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing, setCameraFacing}: BottomRowToolsProps) {
+export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing, setCameraFacing, pickImage, saveImage}: BottomRowToolsProps) {
     const buttonRef = useRef<TouchableOpacity>(null);
 
  function toggleCameraFacing() {
@@ -26,9 +28,9 @@ export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing,
 
   return (
     <View style={[styles.bottomContainer, styles.directionRowItemsCenter]}>
-        <Link href={"/media-library"} asChild>
-            <IconButton ref={buttonRef} iosName={'photo'} androidName={'library'} onPress={() => {}}/>
-        </Link>
+        {/* <Link href={"/media-library"} asChild> */}
+            <IconButton ref={buttonRef} iosName={'photo'} androidName={'library'} onPress={pickImage}/>
+        {/* </Link> */}
         {/* disabling video view */}
         {/* <View style={styles.directionRowItemsCenter}>
             <TouchableOpacity onPress={toggleCameraMode}>
