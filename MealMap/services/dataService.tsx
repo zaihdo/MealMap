@@ -7,16 +7,6 @@ class DataService {
 
     }
 
-    private async handleResponse(response: Response) {
-        console.log(response.text());
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || "Something went wrong");
-        }
-
-        return response.json();
-    }
-
     public async uploadImage(imageUri: string): Promise<RecipeResponse | null> {
         try {
             const formData = new FormData();
@@ -52,7 +42,31 @@ class DataService {
             return null; // Return null to indicate failure
         }
     }
+
+    public async getStoreResults(ingredients: string[]): Promise<StoreResults | null> {
+        try {
+          const response = await fetch(`${this.baseUrl}/price-compare-by-store`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ingredients }),
+          });
     
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+    
+          const data = await response.json();
+          console.log('Store results', data);
+    
+          // Assuming the API returns the data in the correct format
+          return data.storeResults as StoreResults;
+        } catch (error) {
+          console.error('Error fetching store results', error instanceof Error ? error.message : String(error));
+          return null; // Return null to indicate failure
+        }
+      }
     
 }
 
