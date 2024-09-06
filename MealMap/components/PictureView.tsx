@@ -13,15 +13,13 @@ interface PictureViewProps {
 export default function PictureView({picture, setPicture, onClose, onSave}: PictureViewProps) {
     
     return (
-         <View>
+         <View style={{flex: 1, margin: "-3%", alignItems: "stretch"}}>
           <View style={styles.rightButtonContainer}>
             <IconButton
               iosName="arrow.up"
               androidName="save"
+              containerStyle={{backgroundColor: "green"}}
               onPress={()=> {
-                // saveToLibraryAsync(picture);
-                Alert.alert("Uploaded to HomeScreen");
-                // onClose();
                 onSave(picture);
               }}
             />
@@ -30,6 +28,7 @@ export default function PictureView({picture, setPicture, onClose, onSave}: Pict
             <IconButton
               iosName="xmark"
               androidName="close"
+              containerStyle={{backgroundColor: "red"}}
               onPress={()=> setPicture("")}
             />
           </View>
@@ -43,15 +42,15 @@ const styles = StyleSheet.create({
       position: "absolute",
       zIndex: 1,
       right: 6,
-      paddingTop: 50,
-      gap: 10
+      paddingHorizontal: 15,
+      paddingVertical: 40,
     },
     leftButtonContainer: {
       position: "absolute",
       zIndex: 1,
       left: 6,
-      paddingTop: 50,
-      gap: 10
+      paddingHorizontal: 15,
+      paddingVertical: 40,
     },
     button: {
       flex: 1,

@@ -1,6 +1,24 @@
+import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
+  reactLogo: {
+    height: 350,
+    width: 400,
+    top: -10,
+    // left: 0,
+    position: 'absolute',
+  },
+  headerImage: {
+    color: '#808080',
+    bottom: -90,
+    left: -35,
+    position: 'absolute',
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    gap: 8,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -10,11 +28,10 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 28,
     fontWeight: "600",
-    textAlign: "center",
-    marginBottom: 30,
-    marginTop: 30,
+    textAlign: "left",
+    margin: 10,
     color: "#333",
-    flex: 2,
+    flex: 1,
     flexDirection: "row",
     width: "100%",
   },
@@ -29,6 +46,11 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   contentContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingBottom: 10, // Ensure padding at the bottom so content is not cut off
+  },
+  headerContainer: {
     alignItems: "center",
     justifyContent: "center",
     paddingBottom: 20, // Ensure padding at the bottom so content is not cut off
@@ -71,9 +93,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#4CAF50",
     alignItems: "center",
   },
+  secondaryButton: {
+    width: "100%",
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#4CAF50",
+    alignItems: "center",
+  },
   buttonText: {
     fontSize: 18,
     color: "#fff",
+    fontWeight: "500",
+    textAlign: "center"
+  },
+  secondaryButtonText: {
+    fontSize: 18,
+    color: Colors.dark.foravaGreen,
     fontWeight: "500",
     textAlign: "center"
   },

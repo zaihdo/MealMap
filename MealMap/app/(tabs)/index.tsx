@@ -2,12 +2,14 @@
 
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, Text, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import { StyleSheet, TextInput, Text, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, ScrollView, View, SafeAreaView } from 'react-native';
 import CameraViewComponent from '@/components/Camera';
 import RecentActivity from '@/components/RecentActivity';
 import styles from '@/components/styles'
 import { Image } from 'expo-image';
 import DataService from '@/services/dataService';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const recentData = [
   { id: '1', title: 'Uploaded Recipe: Spaghetti Bolognese', daysAgo: 2 },
@@ -35,17 +37,22 @@ export default function App() {
     console.log(image);
   }
 
+  const navigateToRecipeBreakdown = (image: string) => {
+    router.push({pathname: "/recipe-markdown", params: {imageProp: image}})
+  }
+
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined} // Adjust behavior for iOS and Android
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0} // Adjust offset based on platform
-    >
+    <>
       {showCamera ? (
+        <View style={{padding: 0, flex: 1}}>
+
         <CameraViewComponent onSave={handlePictureSave} onClose={() => setShowCamera(false)} />
+        </View>
       ) : (
-        <ScrollView style={{ flex: 1 }}contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
-          <Text style={styles.welcomeText}>Forage | Find | Feast</Text>
+        <ParallaxScrollView
+        headerBackgroundColor={{ light: '#E4CDB1', dark: '#E4CDB1' }}
+      headerImage={<Image source={require("@/assets/images/vegetable-cart.png")} style={styles.reactLogo}/>}>
+          <Text style={styles.welcomeText}>Forava</Text>
           {/* {uploadedText ? (
             <Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
           ) : null} */} 
@@ -53,12 +60,34 @@ export default function App() {
               <>
                 <Text style={styles.subheadingText}>Preview</Text>
                 <Image source={image} style={{width: '100%', height: 300, borderRadius: 25, marginBottom: 10}}></Image>
-                <TouchableOpacity style={styles.cameraButton} onPress={() => {new DataService().uploadImage(image)}}>
-                  <Text style={styles.buttonText}>Upload Image</Text>
+                <TouchableOpacity style={styles.cameraButton} onPress={() => {navigateToRecipeBreakdown(image)}}>
+                  <Text style={styles.buttonText}>Get me a recipe</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.secondaryButton} onPress={() => {setImage("")}}>
+                  <Text style={styles.secondaryButtonText}>Cancel</Text>
                 </TouchableOpacity>
               </>
               //<Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
-          ) : null}
+          ) : (
+            <>
+            <TouchableOpacity style={styles.cameraButton} onPress={() => setShowCamera(true)}>
+              <Text style={styles.buttonText}>Upload Image</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.secondaryButton} onPress={() => router.push('/GroceryList')}>
+            <Text style={styles.secondaryButtonText}>Create Grocery List</Text> 
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.secondaryButton} onPress={handleUpload}>
+              <Text style={styles.secondaryButtonText}>Compare Prices</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.secondaryButton} onPress={() => router.push('/recipes')}>
+              <Text style={styles.secondaryButtonText}>Recommended Recipes</Text>
+            </TouchableOpacity>
+            </>
+
+          )}
+
+          
+
           {/* <TextInput
             style={styles.textInput}
             placeholder="Enter your ingredients..."
@@ -75,27 +104,9 @@ export default function App() {
             <Text style={styles.buttonText}>Submit List</Text> 
           </TouchableOpacity> */}
 
-          <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/GroceryList')}>
-            <Text style={styles.buttonText}>Create Grocery List</Text> 
-          </TouchableOpacity>
-
-          {!image ? (
-            <TouchableOpacity style={styles.cameraButton} onPress={() => setShowCamera(true)}>
-            <Text style={styles.buttonText}>Upload Recipe</Text>
-          </TouchableOpacity>
-          ): null}
-
-          <TouchableOpacity style={styles.cameraButton} onPress={handleUpload}>
-            <Text style={styles.buttonText}>Compare Prices</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/recipes')}>
-            <Text style={styles.buttonText}>Recommended Recipes</Text>
-          </TouchableOpacity>
-
           <RecentActivity data={recentData} />
-        </ScrollView>
+          </ParallaxScrollView>
       )}
-    </KeyboardAvoidingView>
+      </>
   );
 }

@@ -10,8 +10,10 @@ interface BottomRowToolsProps {
     setCameraMode: (value: CameraMode) => void;
     cameraFacing: CameraType;
     setCameraFacing: (value: CameraType) => void;
+    pickImage: () => void;
+    saveImage: () => void;
 }
-export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing, setCameraFacing}: BottomRowToolsProps) {
+export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing, setCameraFacing, pickImage, saveImage}: BottomRowToolsProps) {
     const buttonRef = useRef<TouchableOpacity>(null);
 
  function toggleCameraFacing() {
@@ -26,18 +28,7 @@ export default function BottomRowTools({cameraMode, setCameraMode, cameraFacing,
 
   return (
     <View style={[styles.bottomContainer, styles.directionRowItemsCenter]}>
-        <Link href={"/media-library"} asChild>
-            <IconButton ref={buttonRef} iosName={'photo'} androidName={'library'} onPress={() => {}}/>
-        </Link>
-        {/* disabling video view */}
-        {/* <View style={styles.directionRowItemsCenter}>
-            <TouchableOpacity onPress={toggleCameraMode}>
-                <ThemedText style={cameraMode == "picture" ? {fontWeight: 'bold'} : {fontWeight: "black"}}>Picture</ThemedText>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={toggleCameraMode}>
-                <ThemedText style={cameraMode == "video" ? {fontWeight: 'bold'} : {fontWeight: "black"}}>Video</ThemedText>
-            </TouchableOpacity>
-        </View> */}
+        <IconButton ref={buttonRef} iosName={'photo'} androidName={'library'} onPress={pickImage}/>
         <IconButton
            ref={buttonRef}
            iosName="camera.rotate"
@@ -53,7 +44,9 @@ const styles = StyleSheet.create({
     directionRowItemsCenter: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 12
+        gap: 12,
+        paddingHorizontal: 20,
+        paddingVertical: 10
     },
     bottomContainer: {
         bottom: 5,
