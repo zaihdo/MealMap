@@ -32,7 +32,8 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="onboarding" options={{presentation: "fullScreenModal", headerShown: false, animation: "fade"}} />
         <Stack.Screen name="media-library" options={{presentation: "modal", animation: "default", headerShown: false} } />
-        <Stack.Screen name="recipe-markdown" options={{presentation: "modal", headerBackTitle: "Home"}}/>
+        <Stack.Screen name="recipe-markdown" options={{presentation: "modal", headerBackTitle: "Home", headerTitle:"Here's Your Recipe"}}/>
+        <Stack.Screen name="store-comparison" options={{presentation: "modal", headerBackTitle: "Home", headerTitle:"Here's Your Store Comparison"}}/>
         <Stack.Screen name="+not-found"/>
       </Stack>
     </ThemeProvider>

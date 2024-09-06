@@ -33,9 +33,11 @@ const StoreComparisonScreen = ({}) => {
         data={result.items}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
-            <Text>{item.ingredient}</Text>
-            <Text>{item.matchedProduct}</Text>
-            <Text>${item.price.toFixed(2)}</Text>
+            <View style={styles.itemDetails}>
+              <Text style={styles.ingredientText}>Ingredient: {item.ingredient}</Text>
+              <Text style={styles.matchedItemText}>Matched Item: {item.matchedProduct}</Text>
+            </View>
+            <Text style={styles.priceText}>${item.price.toFixed(2)}</Text>
           </View>
         )}
         keyExtractor={(item) => item.ingredient}
@@ -54,7 +56,7 @@ const StoreComparisonScreen = ({}) => {
     <View style={styles.container}>
       <View style={styles.summary}>
         <Text style={styles.summaryText}>Cheapest Store: {cheapestStore}</Text>
-        <Text style={styles.summaryText}>Potential Savings: ${potentialSavings.toFixed(2)}</Text>
+        <Text style={styles.savingsText}>Potential Savings: ${potentialSavings.toFixed(2)}</Text>
       </View>
       <FlatList
         data={Object.entries(storeResults)}
@@ -66,14 +68,19 @@ const StoreComparisonScreen = ({}) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 10 },
-  summary: { padding: 10, backgroundColor: '#e0e0e0', marginBottom: 10 },
-  summaryText: { fontSize: 16, fontWeight: 'bold' },
-  storeContainer: { marginBottom: 20, padding: 10, borderWidth: 1, borderColor: '#ddd' },
-  cheapestStore: { backgroundColor: '#e6ffe6' },
-  storeName: { fontSize: 18, fontWeight: 'bold' },
-  totalCost: { fontSize: 16, marginBottom: 10 },
-  itemContainer: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 },
+  container: { flex: 1, padding: 10, backgroundColor: '#f5f5f5' },
+  summary: { padding: 15, backgroundColor: '#e0f7fa', borderRadius: 10, marginBottom: 15 },
+  summaryText: { fontSize: 18, fontWeight: 'bold', color: '#00796b' },
+  savingsText: { fontSize: 16, color: '#388e3c' },
+  storeContainer: { marginBottom: 25, padding: 15, backgroundColor: '#fff', borderRadius: 10, shadowColor: '#000', shadowOpacity: 0.1, shadowOffset: { width: 0, height: 3 }, elevation: 1 },
+  cheapestStore: { borderColor: '#43a047', borderWidth: 2, backgroundColor: "#e6ffe6" },
+  storeName: { fontSize: 20, fontWeight: 'bold', marginBottom: 5, color: '#424242' },
+  totalCost: { fontSize: 18, fontWeight: 'bold', color: '#d32f2f', marginBottom: 15 },
+  itemContainer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
+  itemDetails: { flex: 1 },
+  ingredientText: { fontSize: 16, color: '#424242' },
+  matchedItemText: { fontSize: 14, color: '#757575', marginTop: 2 },
+  priceText: { fontSize: 16, fontWeight: 'bold', color: '#388e3c' },
 });
 
 export default StoreComparisonScreen;
