@@ -43,9 +43,11 @@ class DataService {
         }
     }
 
-    public async getStoreResults(ingredients: string[]): Promise<StoreResults | null> {
+    public async getStoreResults(ingredients: Recipe["ingredients"]): Promise<StoreResults | null> {
         try {
-          const response = await fetch(`${this.baseUrl}/price-compare-by-store`, {
+          console.log({ingredients});
+          const groceryBaseUrl = "https://grocery-backend-423764535527.us-central1.run.app/api/items";
+          const response = await fetch(`${groceryBaseUrl}/price-compare-by-store`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

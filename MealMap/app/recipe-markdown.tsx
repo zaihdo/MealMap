@@ -1,7 +1,7 @@
 import DataService from '@/services/dataService';
 import { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, SectionList, StyleSheet, TouchableOpacity } from 'react-native';
-import { useGlobalSearchParams } from 'expo-router';
+import { router, useGlobalSearchParams } from 'expo-router';
 import { Colors } from '@/constants/Colors';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedText } from '@/components/ThemedText';
@@ -33,6 +33,10 @@ export default function RecipeMarkdown() {
         fetchRecipe();
     }, []);
 
+    const navigateToPriceBreakdown = (ingredients: Recipe["ingredients"]) => {
+        router.push({pathname: "/store-comparison", params: {ingredientsProp: ingredients}})
+    }
+    
     const renderItem = ({ item }: { item: string }) => (
         <View style={styles2.card}>
             <Text style={styles2.cardText}>{item}</Text>
@@ -72,8 +76,8 @@ export default function RecipeMarkdown() {
                 contentContainerStyle={styles2.listContent}
             />
             <View style={{flex: 0}}>
-            <TouchableOpacity style={styles.cameraButton}>
-            <Text style={styles.buttonText}>Get Ingredients</Text>
+            <TouchableOpacity style={styles.cameraButton} onPress={()=>{navigateToPriceBreakdown(recipe.ingredients)}}>
+            <Text style={styles.buttonText}>Get Ingredient Prices</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.secondaryButton}>
             <Text style={styles.secondaryButtonText}>Save Recipe</Text>
