@@ -56,10 +56,7 @@ export default function OnboardingScreen() {
                 },
             }}
             fallback={
-                <Image
-              source={require('@/assets/images/bargainBearHorizontal.png')}
-              style={styles.reactLogo}
-            />
+              <Image source={require("@/assets/images/vegetable-cart.png")} style={styles.reactLogo}/>
             }
         />
       }>
