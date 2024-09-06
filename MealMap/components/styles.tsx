@@ -2,9 +2,12 @@ import { Colors } from "@/constants/Colors";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: 'transparent', // Match this with your app's background
+  reactLogo: {
+    height: 350,
+    width: 400,
+    top: -10,
+    // left: 0,
+    position: 'absolute',
   },
   headerImage: {
     color: '#808080',

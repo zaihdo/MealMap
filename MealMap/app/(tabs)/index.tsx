@@ -42,20 +42,16 @@ export default function App() {
   }
 
   return (
-    // <SafeAreaView style={styles.safeArea}>
-    //   <KeyboardAvoidingView
-    //   // style={styles.container}
-    //   behavior={Platform.OS === 'ios' ? 'padding' : undefined} // Adjust behavior for iOS and Android
-    //   keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0} // Adjust offset based on platform
-    // >
     <>
       {showCamera ? (
+        <View style={{padding: 0, flex: 1}}>
+
         <CameraViewComponent onSave={handlePictureSave} onClose={() => setShowCamera(false)} />
-        
+        </View>
       ) : (
         <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
+        headerBackgroundColor={{ light: '#E4CDB1', dark: '#E4CDB1' }}
+      headerImage={<Image source={require("@/assets/images/vegetable-cart.png")} style={styles.reactLogo}/>}>
           <Text style={styles.welcomeText}>Forava</Text>
           {/* {uploadedText ? (
             <Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
@@ -112,7 +108,5 @@ export default function App() {
           </ParallaxScrollView>
       )}
       </>
-    // {/* </KeyboardAvoidingView> */}
-    // {/* // </SafeAreaView> */}
   );
 }
