@@ -58,11 +58,36 @@ export default function App() {
                 <Text style={styles.subheadingText}>Preview</Text>
                 <Image source={image} style={{width: '100%', height: 300, borderRadius: 25, marginBottom: 10}}></Image>
                 <TouchableOpacity style={styles.cameraButton} onPress={() => {navigateToRecipeBreakdown(image)}}>
-                  <Text style={styles.buttonText}>Upload Image</Text>
+                  <Text style={styles.buttonText}>Get me a recipe</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.secondaryButton} onPress={() => {setImage("")}}>
+                  <Text style={styles.secondaryButtonText}>Cancel</Text>
                 </TouchableOpacity>
               </>
               //<Text style={styles.uploadedText}>You uploaded: {uploadedText}</Text>
-          ) : null}
+          ) : (
+            <>
+            <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/GroceryList')}>
+            <Text style={styles.buttonText}>Create Grocery List</Text> 
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.cameraButton} onPress={() => setShowCamera(true)}>
+              <Text style={styles.buttonText}>Upload Recipe</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.cameraButton} onPress={handleUpload}>
+              <Text style={styles.buttonText}>Compare Prices</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/recipes')}>
+              <Text style={styles.buttonText}>Recommended Recipes</Text>
+            </TouchableOpacity>
+            </>
+
+          )}
+
+          
+
           {/* <TextInput
             style={styles.textInput}
             placeholder="Enter your ingredients..."
@@ -78,24 +103,6 @@ export default function App() {
           {/* <TouchableOpacity style={styles.uploadButton} onPress={handleUpload}>
             <Text style={styles.buttonText}>Submit List</Text> 
           </TouchableOpacity> */}
-
-          <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/GroceryList')}>
-            <Text style={styles.buttonText}>Create Grocery List</Text> 
-          </TouchableOpacity>
-
-          {!image ? (
-            <TouchableOpacity style={styles.cameraButton} onPress={() => setShowCamera(true)}>
-            <Text style={styles.buttonText}>Upload Recipe</Text>
-          </TouchableOpacity>
-          ): null}
-
-          <TouchableOpacity style={styles.cameraButton} onPress={handleUpload}>
-            <Text style={styles.buttonText}>Compare Prices</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.cameraButton} onPress={() => router.push('/recipes')}>
-            <Text style={styles.buttonText}>Recommended Recipes</Text>
-          </TouchableOpacity>
 
           <RecentActivity data={recentData} />
         </ScrollView>
