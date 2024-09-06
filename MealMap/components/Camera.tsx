@@ -144,8 +144,9 @@ const styles2 = StyleSheet.create({
   leftButtonContainer: {
     position: "absolute",
     zIndex: 1,
-    left: 6,
-    paddingTop: 50,
+    left: 10,
+    paddingHorizontal: 5,
+    paddingVertical: 30,
     gap: 10
   },
 });

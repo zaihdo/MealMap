@@ -20,8 +20,6 @@ export default function PictureView({picture, setPicture, onClose, onSave}: Pict
               androidName="save"
               containerStyle={{backgroundColor: "green"}}
               onPress={()=> {
-                // saveToLibraryAsync(picture);
-                // onClose();
                 onSave(picture);
               }}
             />
@@ -44,15 +42,15 @@ const styles = StyleSheet.create({
       position: "absolute",
       zIndex: 1,
       right: 6,
-      paddingTop: 50,
-      gap: 10
+      paddingHorizontal: 15,
+      paddingVertical: 40,
     },
     leftButtonContainer: {
       position: "absolute",
       zIndex: 1,
       left: 6,
-      paddingTop: 50,
-      gap: 10
+      paddingHorizontal: 15,
+      paddingVertical: 40,
     },
     button: {
       flex: 1,
